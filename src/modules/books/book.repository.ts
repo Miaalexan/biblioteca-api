@@ -13,8 +13,13 @@ export class BookRepository {
         return { _id: result.insertedId, ...data };
     }
 
-    async findAll(): Promise<Book[]> {
-        return this.collection().find().sort({ createdAt: -1 }).toArray();
+    async findAll(): Promise<BookWithAuthor[]> {
+        return this.collection()
+            .aggregate<BookWithAuthor>([
+                ...this.authorLookupStages(),
+                { $sort: { createdAt: -1 } },
+            ])
+            .toArray();
     }
 
     async findById(id: ObjectId): Promise<Book | null> {

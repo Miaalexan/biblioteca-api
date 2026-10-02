@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { Book, BookDTO } from "./book.model";
+import { Book, BookDTO, BookWithAuthor } from "./book.model";
 import { BookRepository } from "./book.repository";
 import { AuthorRepository } from "../authors/author.repository";
 import { BadRequestError, NotFoundError } from "../../shared/errors/AppError";
@@ -37,7 +37,7 @@ export class BookService {
         return this.bookRepository.create(book);
     }
 
-    async findAll(): Promise<Book[]> {
+    async findAll(): Promise<BookWithAuthor[]> {
         return this.bookRepository.findAll();
     }
 
