@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import { Author } from "../authors/author.model";
 
 export interface Book {
     _id?: ObjectId;
@@ -11,7 +12,9 @@ export interface Book {
     updatedAt: Date;
 }
 
-
+export interface BookWithAuthor extends Omit<Book, "authorId"> {
+    author: Author | null;
+}
 export interface BookDTO {
     title?: string;
     isbn?: string;
@@ -19,3 +22,4 @@ export interface BookDTO {
     year?: number;
     available?: boolean;
 }
+
